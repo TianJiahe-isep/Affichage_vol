@@ -15,20 +15,13 @@ import java.util.Map;
 
 public class Vol {
 
-    public static void main(String[] args) throws IOException {
-        List<Map<String, String>> vols = lireCSV();
-        //ecrireCSV(vols);
-        ecrireCSV_try(vols);
-    }
-
     //Creation du fichier csv pour enregistrer les infos
-
-
-    private static void ecrireCSV(List<Map<String, String>> vols) throws IOException {
-        FileWriter fch = new FileWriter("nv_vols.csv");
+    private static void ecrireCSV(List<Map<String, String>> vols, String filePath) throws IOException {
+        FileWriter fch = new FileWriter(filePath);
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
-                .setHeader(new String[]{"jour", "de", "à", "id", "prévu à"})
+                .setHeader(new String[]{"Code", "Dép", "Arriv", "Date", "Heure"})
+                .setDelimiter('|')
                 .build();
         CSVPrinter printer = new CSVPrinter(fch, csvFormat);
         for (Map<String, String> vol : vols) {
@@ -42,34 +35,12 @@ public class Vol {
         }
         fch.close(); // Attention, fichier EN ECRITURE non fermé si exception
     }
-    private static void ecrireCSV_try(List<Map<String, String>> vols) {
 
-        try (FileWriter fch = new FileWriter("nv_vols.csv")) {
+    //Methode de lecture
+    public static List<Map<String, String>> lireCSV(String filePath) throws IOException {
 
-            CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
-                    .setHeader(new String[]{"jour", "de", "à", "id", "prévu à"})
-                    .build();
-
-            CSVPrinter printer = null;
-            printer = new CSVPrinter(fch, csvFormat);
-            for (Map<String, String> vol : vols) {
-                printer.printRecord(
-                        vol.get("Date"),
-                        vol.get("Dép"),
-                        vol.get("Arriv"),
-                        vol.get("Code"),
-                        vol.get("Heure")
-                );
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException("Problème...",e);
-        }
-        // "Close" automatique...
-    }
-    public static List<Map<String, String>> lireCSV() throws IOException {
-
-        Reader in = new FileReader("./vols.csv");
+       // Reader in = new FileReader(getClass().getClassLoader().getResource("vols.csv").getFile());
+        Reader in = new FileReader(filePath);
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
                 .setHeader(new String[]{"Code", "Dép", "Arriv", "Date", "Heure"})
@@ -95,4 +66,47 @@ public class Vol {
         //System.out.println(vols);
         return vols;
     }
+
+    public static void main(String[] args) throws IOException {
+        String filePath = "./liste_vols.csv";
+        List<Map<String, String>> vols = new ArrayList<>();
+
+        Map<String, String> vol1 = new HashMap<>();
+        vol1.put("Date", "2024-12-15");
+        vol1.put("Dép", "JFK");
+        vol1.put("Arriv", "LAX");
+        vol1.put("Code", "AB123");
+        vol1.put("Heure", "08:00");
+        vols.add(vol1);
+
+        Map<String, String> vol2 = new HashMap<>();
+        vol2.put("Date", "2024-12-16");
+        vol2.put("Dép", "SFO");
+        vol2.put("Arriv", "ORD");
+        vol2.put("Code", "CD456");
+        vol2.put("Heure", "12:00");
+        vols.add(vol2);
+
+
+        try {
+            ecrireCSV(vols, filePath);
+            System.out.println("Le fichier CSV a été écrit dans " + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Le fichier CSV a créé!");
+
+        //Lire le fichier CSV
+        try {
+            List<Map<String, String>> readVols = lireCSV(filePath);
+            System.out.println("Voici les données du fichier CSV :");
+            for (Map<String, String> vol : readVols) {
+                System.out.println(vol);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
