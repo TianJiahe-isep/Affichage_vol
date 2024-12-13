@@ -73,18 +73,34 @@ public class Vol {
 
         Map<String, String> vol1 = new HashMap<>();
         vol1.put("Date", "2024-12-15");
-        vol1.put("Dép", "JFK");
-        vol1.put("Arriv", "LAX");
-        vol1.put("Code", "AB123");
+        vol1.put("Départ", "CDG");
+        vol1.put("Arrivé", "BCN");
+        vol1.put("Code", "AF111");
         vol1.put("Heure", "08:00");
         vols.add(vol1);
 
         Map<String, String> vol2 = new HashMap<>();
         vol2.put("Date", "2024-12-16");
-        vol2.put("Départ", "SFO");
-        vol2.put("Arrivé", "ORD");
-        vol2.put("Code", "CD456");
-        vol2.put("Heure", "12:00");
+        vol2.put("Départ", "CDG");
+        vol2.put("Arrivé", "LON");
+        vol2.put("Code", "AF222");
+        vol2.put("Heure", "09:00");
+        vols.add(vol2);
+
+        Map<String, String> vol3 = new HashMap<>();
+        vol3.put("Date", "2024-12-30");
+        vol3.put("Départ", "CDG");
+        vol3.put("Arrivé", "BJS");
+        vol3.put("Code", "AF333");
+        vol3.put("Heure", "01:00");
+        vols.add(vol3);
+
+        Map<String, String> vol4 = new HashMap<>();
+        vol4.put("Date", "2025-01-03");
+        vol4.put("Départ", "MIL");
+        vol4.put("Arrivé", "CDG");
+        vol4.put("Code", "AF444");
+        vol4.put("Heure", "05:00");
         vols.add(vol2);
 
 
