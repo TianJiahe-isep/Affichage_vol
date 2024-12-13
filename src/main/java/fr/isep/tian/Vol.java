@@ -20,15 +20,15 @@ public class Vol {
         FileWriter fch = new FileWriter(filePath);
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
-                .setHeader(new String[]{"Code", "Dép", "Arriv", "Date", "Heure"})
+                .setHeader(new String[]{"Code", "Départ", "Arrivé", "Date", "Heure"})
                 .setDelimiter('|')
                 .build();
         CSVPrinter printer = new CSVPrinter(fch, csvFormat);
         for (Map<String, String> vol : vols) {
             printer.printRecord(
                     vol.get("Date"),
-                    vol.get("Dép"),
-                    vol.get("Arriv"),
+                    vol.get("Départ"),
+                    vol.get("Arrivé"),
                     vol.get("Code"),
                     vol.get("Heure")
             );
@@ -43,7 +43,7 @@ public class Vol {
         Reader in = new FileReader(filePath);
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
-                .setHeader(new String[]{"Code", "Dép", "Arriv", "Date", "Heure"})
+                .setHeader(new String[]{"Code", "Départ", "Arrivé", "Date", "Heure"})
                 .setSkipHeaderRecord(true)
                 .setDelimiter('|')
                 .setIgnoreSurroundingSpaces(true)
@@ -55,8 +55,8 @@ public class Vol {
         for (CSVRecord record : records) {
             Map<String,String> vol = new HashMap<>();
             vol.put("Code", record.get("Code"));
-            vol.put("Dép", record.get("Dép"));
-            vol.put("Arriv", record.get("Arriv"));
+            vol.put("Départ", record.get("Départ"));
+            vol.put("Arrivé", record.get("Arrivé"));
             vol.put("Date", record.get("Date"));
             vol.put("Heure", record.get("Heure"));
             vols.add(vol);
@@ -81,8 +81,8 @@ public class Vol {
 
         Map<String, String> vol2 = new HashMap<>();
         vol2.put("Date", "2024-12-16");
-        vol2.put("Dép", "SFO");
-        vol2.put("Arriv", "ORD");
+        vol2.put("Départ", "SFO");
+        vol2.put("Arrivé", "ORD");
         vol2.put("Code", "CD456");
         vol2.put("Heure", "12:00");
         vols.add(vol2);
